@@ -32,7 +32,7 @@ let login = {
         2.3 Hamster Wheel : ลู่วิ่งวงกลม
 */
 
-let category = [
+let categories = [
     {
         categoryID : "T0001",
         categoryName : "Hamster food" 
@@ -47,14 +47,14 @@ let category = [
 
 // let hamsterEquipment = ["Hamster Cage", "Hamster water bottle", "Hamster Wheel"]
 
-const product = [
+const products = [
     {
         productID: "PF001",
         categoryID: "CF001",
         productName: "Ready-made hamster food",
         buyPerPiece: 120,
         inventory: 100,
-        totalBuy : 120*100,
+        cost : 120*100,
         supplier: "Supplier01",
     },
     {
@@ -63,7 +63,7 @@ const product = [
         productName: "Roasted sunflower seeds",
         buyPerPiece: 9,
         inventory: 100,
-        totalBuy : 9*100,
+        cost : 9*100,
         supplier: "Supplier02",
     },
         {
@@ -72,7 +72,7 @@ const product = [
         productName: "Dried mealworms",
         buyPerPiece: 65,
         inventory: 100,
-        totalBuy : 65*100,
+        cost : 65*100,
         supplier: "Supplier02",
     },
         {
@@ -81,7 +81,7 @@ const product = [
         productName: "Taro fish snack",
         buyPerPiece: 55,
         inventory: 100,
-        totalBuy : 55*100,
+        cost : 55*100,
         supplier: "Supplier02",
     },
         {
@@ -90,7 +90,7 @@ const product = [
         productName: "Fruity hamster",
         buyPerPiece: 130,
         inventory: 100,
-        totalBuy : 130*100,
+        cost : 130*100,
         supplier: "Supplier01",
     },
     {
@@ -99,7 +99,7 @@ const product = [
         productName: "Hamster Cage",
         buyPerPiece: 850,
         inventory: 10,
-        totalBuy : 850*10,
+        cost : 850*10,
         supplier: "Supplier03",
     },
         {
@@ -108,7 +108,7 @@ const product = [
         productName: "Hamster water bottle",
         buyPerPiece: 60,
         inventory: 30,
-        totalBuy : 60*30,
+        cost : 60*30,
         supplier: "Supplier03",
     },
         {
@@ -117,13 +117,13 @@ const product = [
         productName: "Hamster Wheel",
         buyPerPiece: 200,
         inventory: 10,
-        totalBuy : 200*10,
+        cost : 200*10,
         supplier: "Supplier03",
     },
 ]
 
 // Order Transition
-let order = [
+let orders = [
     {
         orderID : "OD0001",
         customerID : login.customerID [  
@@ -164,7 +164,7 @@ let order = [
     // }
 ]
 
-let inventory = [
+let inventories = [
     {
         productID : product[3].productID,
         inventored : 97,
@@ -175,32 +175,32 @@ let inventory = [
     },
 ]
 
-let cart = {
+let carts = {
     cartID : "CAR0001",
     orderID : order[0],
 }
 
-let payment = {
+let payments = {
     paymentID : "PY0001",
     cartID : cart.cartID,
-    paymentDate : "12/3/2026",
+    paymentDate : "12/03/2026",
     amount : 507,
     paymentStatus : "Paid",
 }
 
-let transfer = {
+let transfers = {
     transferId : "TF0001",
     paymentId : payment.paymentId,
     status : "sent",
 }
 
-let comment = {
+let comments = {
     commentId : "CM0001",
     customerId : login.customerId,
     transferId : transfer.transferId,
     rating : 5,
     commentText : "Good!!!",
-    commentDate : "12/3/2026"
+    commentDate : "15/03/2026"
 }
 
     

@@ -23,6 +23,7 @@
 -- 6.
 -- SELECT * FROM Orders WHERE staff_id = 1;
 
+-- 00.
 -- SELECT
 --     s.first_name,
 --     s.last_name,
@@ -34,14 +35,14 @@
 
 
 -- 7. ยังไม่เข้าใจ
--- SELECT
---     Staff.first_name,
---     Staff.last_name,
---     COUNT(Orders.order_id) AS order_count
--- FROM Staff
--- JOIN Orders ON Staff.staff_id = Orders.staff_id
--- GROUP BY Staff.staff_id
--- ORDER BY order_count DESC;
+SELECT
+    Staff.first_name,
+    Staff.last_name,
+    COUNT(Orders.order_id) AS order_count
+FROM Staff
+JOIN Orders ON Staff.staff_id = Orders.staff_id
+GROUP BY Staff.staff_id
+ORDER BY order_count DESC;
  
 -- 8. ยังไม่เข้าใจ
 -- SELECT

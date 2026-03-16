@@ -1,84 +1,86 @@
 -- 1. Create Signin Table
+CREATE TABLE Signin (
+    signinID SERIAL PRIMARY KEY, -- NEW
+    userName VARCHAR(100) NOT NULL,
+    passWord VARCHAR(100) NOT NULL,
+    firstName VARCHAR(100) NOT NULL,
+    lastName VARCHAR(100) NOT NULL,
+    grender VARCHAR(20) NOT NULL,
+    age INTEGER,
+    address TEXT,
+    email VARCHAR(255) UNIQUE,
+    phone VARCHAR(20) 
+);
 
 -- 2. Create Login Table
+CREATE TABLE Login (
+    customerID SERIAL PRIMARY KEY,
+    signinID INTEGER REFERENCES Signin(signinID) -- NEW
+);
 
 -- 3. Create Categories Table
 CREATE TABLE Categories (
-    category_id SERIAL PRIMARY KEY,
-    category_name VARCHAR(100) NOT NULL UNIQUE
+    categoryID SERIAL PRIMARY KEY,
+    categoryName VARCHAR(100) NOT NULL UNIQUE
 );
-
--- 00. Create Customers Table
--- CREATE TABLE Customers (
---     customer_id SERIAL PRIMARY KEY,
---     first_name VARCHAR(100) NOT NULL,
---     last_name VARCHAR(100) NOT NULL,
---     gender VARCHAR(20),
---     age INTEGER,
---     address TEXT,
---     email VARCHAR(255) UNIQUE,
---     phone VARCHAR(20)
--- );
 
 -- 04. Create Products Table
 CREATE TABLE Products (
-    product_id SERIAL PRIMARY KEY,
-    category_id INTEGER REFERENCES Categories(category_id),
-    product_name VARCHAR(255) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
-    stock_quantity INTEGER NOT NULL DEFAULT 0,
+    productID SERIAL PRIMARY KEY,
+    categoryID INTEGER REFERENCES Categories(categoryID),
+    productName VARCHAR(255) NOT NULL UNIQUE,
+    buyPerPiece DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    inventory DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    cost DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    supplier VARCHAR(255) NOT NULL
 );
 
--- 5. Create Order Table
-
--- 6. Create Inventory Table
-CREATE TABLE Inventory (
-    inventory_id SERIAL PRIMARY KEY,
-    product_id INTEGER REFERENCES Products(product_id),
-    stock_quantity INTEGER NOT NULL DEFAULT 0,
-    location VARCHAR(255),
-    last_updated TIMESTAMP DEFAULT NOW()
+-- 5. Create Orders Table
+CREATE TABLE Orders (
+    orderID SERIAL PRIMARY KEY,
+    customerID INTEGER REFERENCES Login(customerID),
+    orderItem DECIMAL(10) NOT NULL, -- true?
+    productID INTEGER REFERENCES Products(productID),
+    quality DECIMAL(10) NOT NULL, -- true?
+    soldPerPiece DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    totalSold DECIMAL(10, 2) NOT NULL DEFAULT 0.00
 );
 
--- 7. Create Cart Table
+-- 6. Create Inventories Table
+CREATE TABLE Inventories (
+    inventoryID SERIAL PRIMARY KEY,
+    productID INTEGER REFERENCES Products(productID),
+    inventored DECIMAL(10) NOT NULL
+);
 
--- 00. Create Orders Table
--- CREATE TABLE Orders (
---     order_id SERIAL PRIMARY KEY,
---     customer_id INTEGER REFERENCES Customers(customer_id),
---     product_id INTEGER REFERENCES Products(product_id), -- กรณีสั่ง 1 ชิ้นหลักตามแผนภาพ
---     order_date TIMESTAMP DEFAULT NOW(),
---     order_amount INTEGER NOT NULL DEFAULT 1,
---     total_price DECIMAL(10, 2) NOT NULL,
---     shipping_address TEXT
+-- 00. Create Cart Table
+-- CREATE TABLE Carts (
+--     cartID SERIAL PRIMARY KEY,
+--     orderID INTEGER REFERENCES Orders(orderID)
 -- );
 
--- 8. Create Payment Table
-CREATE TABLE Payment (
-    payment_id SERIAL PRIMARY KEY,
-    order_id INTEGER REFERENCES Orders(order_id),
-    payment_method VARCHAR(50),
-    payment_date TIMESTAMP DEFAULT NOW(),
+-- 7. Create Payment Table
+CREATE TABLE Payments (
+    paymentID SERIAL PRIMARY KEY,
+    cartID INTEGER REFERENCES Carts(cartID),
+    paymentDate VARCHAR(255),
     amount DECIMAL(10, 2) NOT NULL,
-    payment_status VARCHAR(50) DEFAULT 'Pending'
+    paymentStatus VARCHAR(50)
 );
 
--- 9. Create Transfers Table
+-- 8. Create Transfer Table
 CREATE TABLE Transfers (
-    transfer_id SERIAL PRIMARY KEY,
-    payment_id INTEGER REFERENCES Payments(payment_id),
-    transfer_time TIMESTAMP DEFAULT NOW(),
-    transfer_amount DECIMAL(10, 2) NOT NULL,
-    verified_status BOOLEAN DEFAULT FALSE
+    transferID SERIAL PRIMARY KEY,
+    paymentID INTEGER REFERENCES Payments(paymentId),
+    status VARCHAR(50)
 );
 
--- 10. Create Comments Table
+-- 9. Create Comment Table
 CREATE TABLE Comments (
-    comment_id SERIAL PRIMARY KEY,
-    customer_id INTEGER REFERENCES Customers(customer_id),
-    product_id INTEGER REFERENCES Products(product_id),
-    rating INTEGER CHECK (rating >= 1 AND rating <= 5),
-    comment_text TEXT,
-    comment_date TIMESTAMP DEFAULT NOW(),
-    status VARCHAR(50) DEFAULT 'Active'
+    commentID SERIAL PRIMARY KEY,
+    customerID INTEGER REFERENCES login(customerID),
+    transferID INTEGER REFERENCES Transfers(transferId),
+    rating DECIMAL(1) NOT NULL,
+    commentText VARCHAR(255),
+    commentDate VARCHAR(255)
 );
